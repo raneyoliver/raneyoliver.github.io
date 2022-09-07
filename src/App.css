@@ -39,48 +39,35 @@
 /* The animation code */
 @keyframes summoner {
   0%   {
-    transform: translateX(0px) translateY(0px);
-    transform: scale(1);
+    background-size: 110%;
+    background-position: 40% top;
   }
-  33%  {
-    transform: translateX(10px) translateY(-10px);
-  }
-  66%  {
-    transform: translateX(-10px) translateY(-10px);
-    transform: scale(0.95);
+  
+  50%  {
+    background-size: 100%;
+    background-position: 70% 30%;  
   }
   100% {
-    transform: translateX(0px) translateY(0px); 
-    transform: scale(1);
+    background-size: 110%;
+    background-position: 40% top;
   }
 }
 
 /* The element to apply the animation to */
-.summoner::before {    
+.summoner {    
   animation-name: summoner;
   animation-timing-function: ease-in-out;
-  animation-duration: 15s;
+  animation-duration: 60s;
   animation-iteration-count: infinite;
 }
 
-.summoner::before {
+/* .summoner::before {
   content: "";
   position: absolute;
-  width: 200%;
-  height: 200%;
-  top: -50%;
-  left: -50%;
-  background: url("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg") 0 0 repeat;
-}
-
-:root {
-  --change: 5px;
-}
-
-.detail:empty {
-  display: none;
-}
-
-.detail Div:empty {
-  display: none;
-}
+  width: 1000%;
+  height: 1000%;
+  left: -85vw;
+  top: -45vh;
+  scale: 0.4;
+  background: url("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg") 0 0 no-repeat;
+} */

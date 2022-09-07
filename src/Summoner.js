@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Paper } from '@mui/material';
-import description from './description.txt';
+import Summoners from './stats/summoners.txt'
+import Stats from './stats/stats.txt'
+import ImageNames from './stats/image_names.txt'
+import Champions from './stats/champions.txt'
 import { styled } from '@mui/material/styles';
+//import { authenticate } from 'league-connect';
 
 
 
@@ -16,16 +20,31 @@ const Div = styled('div')(({ theme }) => ({
   }));
 
 function Summoner(props) {
-    const [lines, setLines] = useState([]);
     const [summoners, setSummoners] = useState([]);
+    const [stats, setStats] = useState([]);
+    const [imageNames, setImageNames] = useState([]);
+    const [champions, setChampions] = useState([]);
 
     useEffect(() => {
-        fetch(description)
+        fetch(Summoners)
         .then((r) => r.text())
         .then(raw  => {
-            setLines(raw.split(/\r?\n/));   // split by newline
-            //console.log(summoners);
-            setSummoners(raw.split("^"));
+            setSummoners(raw.split(/\r?\n/));   // split by newline
+        })
+        fetch(Stats)
+        .then((r) => r.text())
+        .then(raw  => {
+            setStats(raw.split(/\r?\n/));   // split by newline
+        })
+        fetch(ImageNames)
+        .then((r) => r.text())
+        .then(raw  => {
+            setImageNames(raw.split(/\r?\n/));   // split by newline
+        })
+        fetch(Champions)
+        .then((r) => r.text())
+        .then(raw  => {
+            setChampions(raw.split(/\r?\n/));   // split by newline
         })
     }, [])
 
@@ -37,8 +56,9 @@ function Summoner(props) {
             <Paper
                 className='summoner'
                 sx={{
-                    //background: `url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${lines[(props.num * 5) - 3]}_0.jpg) no-repeat`,
-                    backgroundSize: "125% auto",
+                    background: `url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${imageNames[props.num - 1]}_0.jpg) no-repeat`,
+                    backgroundPositionX: "center",
+                    backgroundPositionY: "top",
                     overflow: "hidden",
                     width: "25vw",
                     height: "14vh",
@@ -46,7 +66,10 @@ function Summoner(props) {
                     ml: `${props.num <= 5 ? "3vw" : ""}`,
                     mr: `${props.num <= 5 ? "" : "3vw"}`,
                     my: "2vh",
-                    position: "relative"
+                    position: "relative",
+                    // outlineColor: "rgba(200, 200, 200, 1)",
+                    // outlineWidth: "2px",
+                    // outlineStyle: "solid"
                 }}
                 elevation={12}
             >
@@ -69,14 +92,14 @@ function Summoner(props) {
                 {/* CHAMP NAME */}
                 <Paper style={{position: "absolute", top: "0", backgroundColor: "#282c34bb", right: "0"}}>
                     <Div className='detail'>
-                        {lines[(props.num * 5) - 2]}
+                        {champions[props.num - 1]}
                     </Div>
                 </Paper>
 
                 {/* SUMMONER NAME */}
                 <Paper style={{position: "absolute", bottom: "0", backgroundColor: "#282c34bb"}}>
                     <Div className='detail'>
-                        {lines[(props.num * 5) - 5] || ("Summoner " + props.num)}
+                        {summoners[props.num - 1] || ("Summoner " + props.num)}
                     </Div>
                 </Paper>
 
@@ -95,12 +118,12 @@ function Summoner(props) {
                 left: `${props.num <= 5 ? "28vw" : ""}`,
                 right: `${props.num <= 5 ? "" : "28vw"}`,
                 top: "2vh",
-                display: `${lines[(props.num * 5) - 4] ? "normal" : "none"}`
+                display: `${stats[props.num - 1] ? "normal" : "none"}`,
             }}
                 className='detail'
             >
                 <Div className='detail'>
-                    {lines[(props.num * 5) - 4]}
+                    {stats[props.num - 1]}
                 </Div>
             </Paper>
         </Box>
