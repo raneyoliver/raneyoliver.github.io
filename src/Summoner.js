@@ -5,7 +5,7 @@ import Stats from './stats/stats.txt'
 import ImageNames from './stats/image_names.txt'
 import Champions from './stats/champions.txt'
 import { styled } from '@mui/material/styles';
-//import { authenticate } from 'league-connect';
+const LCUConnector = require('lcu-connector');
 
 
 
